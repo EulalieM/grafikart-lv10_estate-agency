@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/blog', function () {
-    // /blog?name=eulalie
+Route::get('/blog', function (Request $request) {
+
+    // /blog?name=eulalie&age=12
+
     return [
+        "all" => $request->all(),
+        "url" => $request->path(),
         "name" => $_GET['name'],
         "article" => "Article 1"
     ];
