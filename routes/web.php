@@ -18,14 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/blog', function (Request $request) {
-
-    // /blog?name=eulalie&age=12
-
-    return [
-        "all" => $request->all(),
-        "url" => $request->path(),
-        "name" => $_GET['name'],
-        "article" => "Article 1"
-    ];
+Route::get('/blog', function () {
+    return 'Page blog';
 });
+
+Route::get('/blog/{slug}-{id}', function (string $slug, int $id) {
+    return 'Article ' . $id . ' : ' . $slug;
+})->where([
+    'id' => '[0-9]+',
+    'slug' => '[a-z0-9\-]+'
+]);
