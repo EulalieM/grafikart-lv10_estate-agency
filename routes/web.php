@@ -18,5 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('/blog', function () {
-    return 'Bonjour';
+    // /blog?name=eulalie
+    return [
+        "name" => $_GET['name'],
+        "article" => "Article 1"
+    ];
 });
