@@ -19,12 +19,12 @@ Route::get('/', function () {
 });
 
 Route::get('/blog', function () {
-    return 'Page blog';
-});
+    return 'Page blog. Lien d\'un article : <a href="' . \route('blog.show', ['slug' => 'article', 'id' => 8]) . '">Article 8</a>' ;
+})->name('blog.index');
 
 Route::get('/blog/{slug}-{id}', function (string $slug, int $id) {
     return 'Article ' . $id . ' : ' . $slug;
 })->where([
     'id' => '[0-9]+',
     'slug' => '[a-z0-9\-]+'
-]);
+])->name('blog.show');
