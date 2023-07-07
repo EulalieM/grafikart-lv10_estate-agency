@@ -18,13 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/blog', function () {
-    return 'Page blog. Lien d\'un article : <a href="' . \route('blog.show', ['slug' => 'article', 'id' => 8]) . '">Article 8</a>' ;
-})->name('blog.index');
+Route::prefix('/blog')->name('blog.')->group(function () {
+    Route::get('/', function () {
+        return 'Page blog. Lien d\'un article : <a href="' . \route('blog.show', ['slug' => 'article', 'id' => 8]) . '">Article 8</a>' ;
+    })->name('index');
 
-Route::get('/blog/{slug}-{id}', function (string $slug, int $id) {
-    return 'Article ' . $id . ' : ' . $slug;
-})->where([
-    'id' => '[0-9]+',
-    'slug' => '[a-z0-9\-]+'
-])->name('blog.show');
+    Route::get('/{slug}-{id}', function (string $slug, int $id) {
+        return 'Article ' . $id . ' : ' . $slug;
+    })->where([
+        'id' => '[0-9]+',
+        'slug' => '[a-z0-9\-]+'
+    ])->name('show');
+});
