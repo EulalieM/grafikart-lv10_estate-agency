@@ -23,10 +23,8 @@ Route::prefix('/blog')->name('blog.')->group(function () {
 
     Route::get('/', function () {
 
-        // massive update
-        $post = Post::where('id', '>', 1)->update ([
-            'content' => 'Contenu mis à jour pour tous les artices ayant un id > à 1'
-        ]);
+        // massive delete
+        $post = Post::where('id', '>', 2)->delete ();
 
         dd($post);
 
