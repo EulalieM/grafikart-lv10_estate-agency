@@ -23,10 +23,9 @@ Route::prefix('/blog')->name('blog.')->group(function () {
 
     Route::get('/', function () {
 
-        $post = Post::create([
-            'title' => 'Mon nouvel article',
-            'slug' => 'mon-nouvel-article',
-            'content' => 'Contenu de mon nouvel article'
+        // massive update
+        $post = Post::where('id', '>', 1)->update ([
+            'content' => 'Contenu mis à jour pour tous les artices ayant un id > à 1'
         ]);
 
         dd($post);
