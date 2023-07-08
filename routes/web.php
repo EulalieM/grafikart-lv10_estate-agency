@@ -24,8 +24,7 @@ Route::prefix('/blog')->name('blog.')->group(function () {
     Route::get('/', function () {
 
         $post = Post::find(1);
-        $post->title = 'Titre modifié';
-        $post->save();
+        $post->delete();
 
         dd($post);
 
