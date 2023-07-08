@@ -23,12 +23,11 @@ Route::prefix('/blog')->name('blog.')->group(function () {
 
     Route::get('/', function () {
 
-        // $posts = Post::find(2);
-        // $posts = Post::findOrFail(3);
-        // return Post::paginate(1, ['id', 'title']); // /blog?page=2
-        $posts = Post::where('id', '>', 0)->limit(1)->get();
+        $post = Post::find(1);
+        $post->title = 'Titre modifié';
+        $post->save();
 
-        dd($posts);
+        dd($post);
 
         // return 'Page blog. Lien d\'un article : <a href="' . \route('blog.show', ['slug' => 'article', 'id' => 8]) . '">Article 8</a>' ;
     })->name('index');
