@@ -23,17 +23,21 @@ Route::prefix('/blog')->name('blog.')->group(function () {
 
     Route::get('/', function () {
 
-        // massive delete
-        $post = Post::where('id', '>', 2)->delete ();
+        return Post::paginate(25);
 
-        dd($post);
-
-        // return 'Page blog. Lien d\'un article : <a href="' . \route('blog.show', ['slug' => 'article', 'id' => 8]) . '">Article 8</a>' ;
     })->name('index');
 
 
     Route::get('/{slug}-{id}', function (string $slug, int $id) {
-        return 'Article ' . $id . ' : ' . $slug;
+        
+        $post = Post::findOrFail($id);
+
+        if ($post->slug != $slug) {
+            return to_route('blog.show', ['slug' => $post->slug, 'id' => $post->id]);
+        }
+
+        return $post;
+
     })->where([
         'id' => '[0-9]+',
         'slug' => '[a-z0-9\-]+'
