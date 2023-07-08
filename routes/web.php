@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,19 @@ Route::get('/', function () {
 });
 
 Route::prefix('/blog')->name('blog.')->group(function () {
+
     Route::get('/', function () {
-        return 'Page blog. Lien d\'un article : <a href="' . \route('blog.show', ['slug' => 'article', 'id' => 8]) . '">Article 8</a>' ;
+
+        $post = new Post();
+        $post->title = 'Mon deuxième article';
+        $post->slug = 'mon-deuxieme-article';
+        $post->content = 'Contenu de mon deuxième article';
+        $post->save();
+
+        return $post;
+        // return 'Page blog. Lien d\'un article : <a href="' . \route('blog.show', ['slug' => 'article', 'id' => 8]) . '">Article 8</a>' ;
     })->name('index');
+
 
     Route::get('/{slug}-{id}', function (string $slug, int $id) {
         return 'Article ' . $id . ' : ' . $slug;
@@ -29,4 +40,5 @@ Route::prefix('/blog')->name('blog.')->group(function () {
         'id' => '[0-9]+',
         'slug' => '[a-z0-9\-]+'
     ])->name('show');
+
 });
