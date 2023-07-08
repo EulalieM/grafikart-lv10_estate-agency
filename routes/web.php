@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Database\Eloquent\Collection;
 use App\Models\Post;
 
 /*
@@ -24,7 +23,10 @@ Route::prefix('/blog')->name('blog.')->group(function () {
 
     Route::get('/', function () {
 
-        return Post::all();
+        $posts =  Post::all(['id', 'title']);
+
+        dd($posts[0]->title);
+
         // return 'Page blog. Lien d\'un article : <a href="' . \route('blog.show', ['slug' => 'article', 'id' => 8]) . '">Article 8</a>' ;
     })->name('index');
 
