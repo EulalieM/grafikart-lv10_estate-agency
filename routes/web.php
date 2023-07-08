@@ -23,8 +23,11 @@ Route::prefix('/blog')->name('blog.')->group(function () {
 
     Route::get('/', function () {
 
-        $post = Post::find(1);
-        $post->delete();
+        $post = Post::create([
+            'title' => 'Mon nouvel article',
+            'slug' => 'mon-nouvel-article',
+            'content' => 'Contenu de mon nouvel article'
+        ]);
 
         dd($post);
 

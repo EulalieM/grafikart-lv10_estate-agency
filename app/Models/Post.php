@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
+    // protection pour dire que ces champs sont modifiables (avec create)
+    protected $fillable = [
+        'title',
+        'slug',
+        'content'
+    ];
+
+    // protection pour dire que ces champs ne sont pas modifiables
+    // protected $guarded = [];
 }
