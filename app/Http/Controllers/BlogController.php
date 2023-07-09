@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use App\Http\Requests\BlogFilterRequest;
-use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\FormPostRequest;
 use Illuminate\Support\Str;
 
 class BlogController extends Controller
@@ -25,16 +25,28 @@ class BlogController extends Controller
     public function create()
     {
         // dd(session()->all());
-
         return view('blog.create');
     }
 
-    public function store(CreatePostRequest $request)
+    public function store(FormPostRequest $request)
     {
         $post = Post::create($request->validated());
-
         return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])
             -> with('success', "L'article a bien été sauvegardé.");
+    }
+
+    public function edit(Post $post)
+    {
+        return view('blog.edit', [
+            'post' => $post
+        ]);
+    }
+
+    public function update(Post $post, FormPostRequest $request)
+    {
+        $post->update($request->validated());
+        return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])
+            -> with('success', "L'article a bien été modifié.");
     }
 
     public function show(string $slug, Post $post): RedirectResponse | View
