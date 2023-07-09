@@ -8,12 +8,18 @@
 
     <form action="" method="post">
         @csrf
-        <div class="row row-cols-1 g-3">
+        <div class="row row-cols-1 g-4">
             <div class="col">
-                <input type="text" name="title" value="Article de démonstration 3">
+                <input type="text" name="title" value="{{ old('title', 'Mon titre') }}">
+                @error("title")
+                    <p class="text-danger mb-0">{{ $message }}</p>
+                @enderror
             </div>
             <div class="col">
-                <textarea name="content">Contenu de démonstration 3</textarea>
+                <textarea name="content">{{ old('content') }}</textarea>
+                @error("content")
+                <p class="text-danger mb-0">{{ $message }}</p>
+                @enderror
             </div>
             <div class="col">
                 <button class="btn btn-primary">Enregistrer</button>
