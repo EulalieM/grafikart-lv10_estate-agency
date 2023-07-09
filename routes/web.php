@@ -20,17 +20,9 @@ Route::get('/', function () {
 });
 
 Route::prefix('/blog')->name('blog.')->controller(BlogController::class)->group(function () {
-
     Route::get('/', 'index')
         ->name('index');
-
-    /*
     Route::get('/{slug}-{post}', 'show')
         ->where(['post' => '[0-9]+', 'slug' => '[a-z0-9\-]+'])
-        ->name('show');
-    */
-
-    Route::get('/{post:slug}', 'show')
-        ->where(['post' => '[a-z0-9\-]+'])
         ->name('show');
 });

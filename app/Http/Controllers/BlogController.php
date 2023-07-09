@@ -20,17 +20,11 @@ class BlogController extends Controller
         ]);
     }
 
-    public function show(Post $post, Request $request): RedirectResponse | View
+    public function show(string $slug, Post $post): RedirectResponse | View
     {
-        // dd($request->post);
-        dd($request->route()->parameter('post'));
-
-        /*
         if ($post->slug != $slug) {
             return to_route('blog.show', ['slug' => $post->slug, 'id' => $post->id]);
         }
-        */
-
         return view('blog.show', [
             'post' => $post
         ]);
