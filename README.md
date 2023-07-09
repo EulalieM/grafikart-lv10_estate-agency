@@ -8,6 +8,10 @@
 - ``docker build -t grafikart-lv10_estate-agency .``
 - ``docker run -it --rm -p 8000:8000 -v ${PWD}:/usr/src/app --name grafikart-lv10_estate-agency grafikart-lv10_estate-agency``
 
-## Accès
+### Docker container terminal
 
-Accès à l'application sur http://localhost:8000/
+- ``composer install``
+
+## Run the project
+
+Access to the application on http://localhost:8000/
