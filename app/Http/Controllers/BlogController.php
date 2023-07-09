@@ -16,7 +16,8 @@ class BlogController extends Controller
     public function index(BlogFilterRequest $request): View
     {
         // /blog?slug=mon-slug&title=invalid // redirige vers la page précédente
-        // /blog?slug=mon-slug&title=test-valide-8-charact // accès à la page car title est valide
+        // /blog?slug=mon-slug&title=test valide 8 charact // accès à la page car title est valide
+        // /blog?title=test valide 8 charact // accès à la page et génère le slug
 
         dd($request->validated());
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class BlogFilterRequest extends FormRequest
 {
@@ -25,5 +26,13 @@ class BlogFilterRequest extends FormRequest
             'title' => 'required|min:8',
             'slug' => 'required|regex:/^[a-z0-9\-]+$/'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        // génère un slug à la volée si on en a pas par rapport au titre
+        $this->merge([
+            'slug' => $this->input('slug') ?: Str::slug($this->input('title'))
+        ]);
     }
 }
