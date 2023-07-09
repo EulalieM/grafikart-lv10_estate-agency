@@ -9,26 +9,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use App\Http\Requests\BlogFilterRequest;
 
 class BlogController extends Controller
 {
-    public function index(): View
+    public function index(BlogFilterRequest $request): View
     {
-        $validator = Validator::make([
-            'title' => 'Mimimum 8 caractères',
-            'content' => 'Mon contenu'
-        ], [
-            'title' => 'required|min:8'
-            // 'title' => [
-            //     'required',
-            //     'min:8'
-            // ]
-            // 'title' => [Rule::unique('posts')->ignore(2)]
-        ]);
+        // /blog?slug=mon-slug&title=invalid // redirige vers la page précédente
+        // /blog?slug=mon-slug&title=test-valide-8-charact // accès à la page car title est valide
 
-        // dd($validator->fails()); // bool
-        // dd($validator->errors()); // messages d'erreur
-        dd($validator->validated()); // retourne seulement les éléments validés
+        dd($request->validated());
 
         return view('blog.index', [
             'posts' => Post::paginate(2)
