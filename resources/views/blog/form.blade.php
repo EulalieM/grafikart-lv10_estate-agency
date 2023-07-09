@@ -1,5 +1,6 @@
 <form action="" method="post">
     @csrf
+    @method($post->id ? "PATCH" : "POST")
     <div class="row">
         <div class="col-6">
             <div class="row row-cols-1 g-4">
@@ -14,7 +15,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="slug">Slug (auto-généré si non complété)</label> <br>
+                        <label for="slug">Slug</label> <br>
                         <input class="form-control" type="text" id="slug" name="slug" value="{{ old('slug', $post->slug) }}">
                         @error("slug")
                             <p class="text-danger mb-0">{{ $message }}</p>
