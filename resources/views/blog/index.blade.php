@@ -15,7 +15,7 @@
                 {{ $post->content }}
             </p>
             <p>
-                <a class="btn btn-primary" href="{{ route('blog.show', ['slug' => $post->slug, 'id' => $post->id]) }}">
+                <a class="btn btn-primary" href="{{ route('blog.show', ['post' => $post->slug]) }}">
                     Lire la suite
                 </a>
             </p>
