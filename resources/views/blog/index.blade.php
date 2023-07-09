@@ -4,7 +4,11 @@
 
 @section('content')
 
-    <h1>Mon blog</h1>
+    <h1 class="mb-5">Mon blog</h1>
+
+    <p>
+        <a class="btn btn-primary" href="{{ route('blog.create') }}">Créer un article</a>
+    </p>
 
     <!-- @dump($posts) -->
 
@@ -15,7 +19,7 @@
                 {{ $post->content }}
             </p>
             <p>
-                <a class="btn btn-primary" href="{{ route('blog.show', ['slug' => $post->slug, 'post' => $post->id]) }}">
+                <a class="btn btn-sm btn-primary" href="{{ route('blog.show', ['slug' => $post->slug, 'post' => $post->id]) }}">
                     Lire la suite
                 </a>
             </p>
