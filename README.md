@@ -12,6 +12,6 @@
 
 - ``composer install``
 
-## Accès
+## Run the project
 
-Accès à l'application sur http://localhost:8000/
+Access to the application on http://localhost:8000/
