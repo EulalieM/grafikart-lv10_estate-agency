@@ -19,7 +19,7 @@ class BlogController extends Controller
     public function index(): View
     {
         $post = Post::find(2);
-        $tags = $post->tags()->detach(2);
+        $tags = $post->tags()->attach(2);
 
         return view('blog.index', [
             'posts' => Post::paginate(2)
