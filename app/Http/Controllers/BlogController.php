@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,6 +18,12 @@ class BlogController extends Controller
 {
     public function index(): View
     {
+        Category::create([
+            'name' => 'Catégorie 1'
+        ]);
+        Category::create([
+            'name' => 'Catégorie 2'
+        ]);
         return view('blog.index', [
             'posts' => Post::paginate(2)
         ]);
