@@ -18,10 +18,13 @@ class BlogController extends Controller
 {
     public function index(): View
     {
-        $category = Category::find(1);
-        $post = Post::find(10);
-        $post->category()->associate($category);
-        $post->save();
+        $post = Post::find(2);
+        $post->tags()->createMany([[
+            'name' => 'Tag 1'
+        ], [
+            'name' => 'Tag 2'
+        ]]);
+        
         return view('blog.index', [
             'posts' => Post::paginate(2)
         ]);
