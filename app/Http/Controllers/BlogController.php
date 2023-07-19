@@ -18,12 +18,9 @@ class BlogController extends Controller
 {
     public function index(): View
     {
-        Category::create([
-            'name' => 'Catégorie 1'
-        ]);
-        Category::create([
-            'name' => 'Catégorie 2'
-        ]);
+        $post = Post::find(2);
+        $post->category_id = 1;
+        $post->save();
         return view('blog.index', [
             'posts' => Post::paginate(2)
         ]);
