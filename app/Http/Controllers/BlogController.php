@@ -29,13 +29,16 @@ class BlogController extends Controller
         $post = new Post();
         $post->title = 'Bonjour'; // pré-remplir le form avec des données de test
         return view('blog.create', [
-            'post' => $post
+            'post' => $post,
+            'categories' => Category::select('id', 'name')->get(),
+            'tags' => Tag::select('id', 'name')->get()
         ]);
     }
 
     public function store(FormPostRequest $request)
     {
         $post = Post::create($request->validated());
+        $post->tags()->sync($request->validated('tags'));
         return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])
             -> with('success', "L'article a bien été sauvegardé.");
     }
