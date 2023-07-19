@@ -15,6 +15,20 @@
     @foreach ($posts as $post)
         <article class="my-5">
             <h2>{{ $post->title }}</h2>
+
+            <div class="small">
+                @if($post->category)
+                    <p>Catégorie : {{ $post->category?->name }}</p>
+                @endif
+
+                @if(!$post->tags->isEmpty())
+                    Tag(s) :
+                    @foreach ($post->tags as $tag)
+                        <p class="badge bg-secondary">{{ $tag->name }}</p>
+                    @endforeach
+                @endif
+            </p>
+
             <p>
                 {{ $post->content }}
             </p>

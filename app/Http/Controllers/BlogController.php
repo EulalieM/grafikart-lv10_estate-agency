@@ -18,9 +18,8 @@ class BlogController extends Controller
 {
     public function index(): View
     {
-        dd(Post::has('tags', '>=', '1')->get());
         return view('blog.index', [
-            'posts' => Post::paginate(2)
+            'posts' => Post::with('tags', 'category')->paginate(6)
         ]);
     }
 
