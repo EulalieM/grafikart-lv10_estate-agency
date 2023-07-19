@@ -18,7 +18,8 @@ class Post extends Model
     protected $fillable = [
         'title',
         'slug',
-        'content'
+        'content',
+        'category_id'
     ];
 
     // protection pour dire que ces champs ne sont pas modifiables

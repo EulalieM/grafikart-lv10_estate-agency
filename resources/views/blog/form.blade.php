@@ -32,6 +32,22 @@
                     </div>
                 </div>
                 <div class="col">
+                    <div class="form-group">
+                        <label for="category">Catégorie</label> <br>
+                        <select class="form-control" name="category_id" id="category">
+                            <option value="">Sélectionner une catégorie</option>
+                            @foreach ($categories as $category)
+                                <option @selected(old('category_id', $post->category_id) == $category->id) value="{{ $category->id }}">
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error("category_id")
+                        <p class="text-danger mb-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col">
                     <button class="btn btn-primary">
                         @if($post->id)
                             Modifier
