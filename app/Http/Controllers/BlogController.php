@@ -19,7 +19,7 @@ class BlogController extends Controller
     public function index(): View
     {
         $post = Post::find(2);
-        $tags = $post->tags()->attach(2);
+        $tags = $post->tags()->sync([1, 2]); // mettre a jour les tags et avoir le 1 et 2
 
         return view('blog.index', [
             'posts' => Post::paginate(2)
