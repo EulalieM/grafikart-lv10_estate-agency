@@ -19,7 +19,7 @@ class BlogController extends Controller
     public function index(): View
     {
         $category = Category::find(1);
-        dd($category->posts);
+        $category->posts()->where('id', '>', '10')->get();
         return view('blog.index', [
             'posts' => Post::paginate(2)
         ]);
