@@ -18,10 +18,8 @@ class BlogController extends Controller
 {
     public function index(): View
     {
-        $posts = Post::with('category')->get(); // permet de ne faire qu'une requête (éviter le pb n+1)
-        foreach($posts as $post) {
-            $category = $post->category?->name;
-        }
+        $category = Category::find(1);
+        dd($category->posts);
         return view('blog.index', [
             'posts' => Post::paginate(2)
         ]);
