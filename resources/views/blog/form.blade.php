@@ -33,7 +33,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="category">Catégorie</label> <br>
+                        <label for="category">Catégorie*</label> <br>
                         <select class="form-control" name="category_id" id="category">
                             <option value="">Sélectionner une catégorie</option>
                             @foreach ($categories as $category)
@@ -43,6 +43,24 @@
                             @endforeach
                         </select>
                         @error("category_id")
+                        <p class="text-danger mb-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                @php
+                    $tagsIds = $post->tags()->pluck('id');
+                @endphp
+                <div class="col">
+                    <div class="form-group">
+                        <label for="tag">Tags</label> <br>
+                        <select class="form-control" name="tags[]" id="tag" multiple>
+                            @foreach ($tags as $tag)
+                                <option @selected($tagsIds->contains($tag->id)) value="{{ $tag->id }}">
+                                    {{ $tag->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error("tags")
                         <p class="text-danger mb-0">{{ $message }}</p>
                         @enderror
                     </div>
