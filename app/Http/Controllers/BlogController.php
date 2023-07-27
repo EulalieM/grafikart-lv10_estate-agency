@@ -20,7 +20,6 @@ class BlogController extends Controller
 {
     public function index(): View
     {
-        dd(Auth::user());
         return view('blog.index', [
             'posts' => Post::with('tags', 'category')->paginate(6)
         ]);

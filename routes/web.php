@@ -23,6 +23,8 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'login'])
     ->name('auth.login');
 Route::post('/login', [AuthController::class, 'doLogin']);
+Route::delete('/logout', [AuthController::class, 'logout'])
+    ->name('auth.logout');
 
 Route::prefix('/blog')->name('blog.')->controller(BlogController::class)->group(function () {
     Route::get('/', 'index')

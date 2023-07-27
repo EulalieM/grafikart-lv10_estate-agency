@@ -28,4 +28,10 @@ class AuthController extends Controller
             'email' => "Email invalide"
         ])->onlyInput('email');
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return to_route('auth.login');
+    }
 }
