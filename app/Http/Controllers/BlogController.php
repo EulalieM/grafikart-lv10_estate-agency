@@ -4,28 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
-use App\Models\User;
 use App\Models\Tag;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use App\Http\Requests\BlogFilterRequest;
 use App\Http\Requests\FormPostRequest;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
 
 class BlogController extends Controller
 {
     public function index(): View
     {
-        User::create([
-            'name' => 'John',
-            'email' => 'john@doe.fr',
-            'password' => Hash::make('0000')
-        ]);
+        dd(Auth::user());
         return view('blog.index', [
             'posts' => Post::with('tags', 'category')->paginate(6)
         ]);
@@ -34,7 +29,7 @@ class BlogController extends Controller
     public function create()
     {
         $post = new Post();
-        $post->title = 'Bonjour'; // pré-remplir le form avec des données de test
+        $post->title = 'Bonjour';
         return view('blog.create', [
             'post' => $post,
             'categories' => Category::select('id', 'name')->get(),
