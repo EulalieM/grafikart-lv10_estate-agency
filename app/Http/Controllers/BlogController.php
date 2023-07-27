@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 use App\Models\Tag;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\RedirectResponse;
@@ -14,11 +15,17 @@ use Illuminate\View\View;
 use App\Http\Requests\BlogFilterRequest;
 use App\Http\Requests\FormPostRequest;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class BlogController extends Controller
 {
     public function index(): View
     {
+        User::create([
+            'name' => 'John',
+            'email' => 'john@doe.fr',
+            'password' => Hash::make('0000')
+        ]);
         return view('blog.index', [
             'posts' => Post::with('tags', 'category')->paginate(6)
         ]);
