@@ -26,13 +26,12 @@
                         <!-- <a @class(['nav-link', 'active' => request()->route()->getName() == 'blog.index']) aria-current="page" href="{{ route('blog.index') }}">Blog</a> -->
                         <a @class(['nav-link', 'active' => str_starts_with($routeName, 'blog.')]) aria-current="page" href="{{ route('blog.index') }}">Blog</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
                 </ul>
                 <div class="navbar-nav ms-auto mb-2 mb-lg-0">
                     @auth
-                        <div class="nav-link">{{ Auth::user()->name }}</div>
+                        <div class="nav-item">
+                            <div class="nav-link">{{ Auth::user()->name }}</div>
+                        </div>
                         <form class="nav-item" action="{{ route('auth.logout') }}" method="post">
                             @method("delete")
                             @csrf
@@ -40,7 +39,9 @@
                         </form>
                     @endauth
                     @guest
-                    <a @class(['nav-link', 'active' => str_starts_with($routeName, 'blog.')]) aria-current="page" href="{{ route('auth.login') }}">Se connecter</a>
+                        <div class="nav-item">
+                            <a @class(['nav-link', 'active' => str_starts_with($routeName, 'auth.')]) aria-current="page" href="{{ route('auth.login') }}">Se connecter</a>
+                        </div>
                     @endguest
                 </div>
             </div>
