@@ -31,7 +31,7 @@
 
             @if($post->image)
             <div class="mb-3">
-                <img src="/storage/{{ $post->image }}" alt="" width="100">
+                <img src="{{ $post->imageUrl() }}" alt="" width="100">
             </div>
             @endif
 
