@@ -27,7 +27,13 @@
                         <p class="badge bg-secondary">{{ $tag->name }}</p>
                     @endforeach
                 @endif
-            </p>
+            </div>
+
+            @if($post->image)
+            <div class="mb-3">
+                <img src="/storage/{{ $post->image }}" alt="" width="100">
+            </div>
+            @endif
 
             <p>
                 {{ $post->content }}

@@ -62,7 +62,7 @@ class BlogController extends Controller
         if ($image != null && !$image->getError()) {
             $data['image'] = $image->store('blog', 'public');
         }
-        $post->update($request->validated());
+        $post->update($data);
         $post->tags()->sync($request->validated('tags'));
         return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])
             -> with('success', "L'article a bien été modifié.");
