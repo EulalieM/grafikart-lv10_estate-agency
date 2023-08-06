@@ -16,6 +16,7 @@ use Illuminate\View\View;
 use App\Http\Requests\BlogFilterRequest;
 use App\Http\Requests\FormPostRequest;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -39,7 +40,7 @@ class BlogController extends Controller
 
     public function store(FormPostRequest $request)
     {
-        $post = Post::create($request->validated());
+        $post = Post::create($this->extractData(new Post(), $request));
         $post->tags()->sync($request->validated('tags'));
         return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])
             -> with('success', "L'article a bien été sauvegardé.");
@@ -56,16 +57,25 @@ class BlogController extends Controller
 
     public function update(Post $post, FormPostRequest $request)
     {
-        $data = $request->validated();
-        /** @var UploadedFile|null $image */
-        $image = $request->validated('image');
-        if ($image != null && !$image->getError()) {
-            $data['image'] = $image->store('blog', 'public');
-        }
-        $post->update($data);
+        $post->update($this->extractData($post, $request));
         $post->tags()->sync($request->validated('tags'));
         return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])
             -> with('success', "L'article a bien été modifié.");
+    }
+
+    private function extractData(Post $post, FormPostRequest $request): array
+    {
+        $data = $request->validated();
+        /** @var UploadedFile|null $image */
+        $image = $request->validated('image');
+        if ($image == null || $image->getError()) {
+            return $data;
+        }
+        if ($post->image) {
+            Storage::disk('public')->delete($post->image);
+        }
+        $data['image'] = $image->store('blog', 'public');
+        return $data;
     }
 
     public function show(string $slug, Post $post): RedirectResponse | View
