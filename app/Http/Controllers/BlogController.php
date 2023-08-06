@@ -8,6 +8,7 @@ use App\Models\Tag;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -55,6 +56,12 @@ class BlogController extends Controller
 
     public function update(Post $post, FormPostRequest $request)
     {
+        $data = $request->validated();
+        /** @var UploadedFile|null $image */
+        $image = $request->validated('image');
+        if ($image != null && !$image->getError()) {
+            $data['image'] = $image->store('blog', 'public');
+        }
         $post->update($request->validated());
         $post->tags()->sync($request->validated('tags'));
         return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])

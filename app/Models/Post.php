@@ -19,7 +19,8 @@ class Post extends Model
         'title',
         'slug',
         'content',
-        'category_id'
+        'category_id',
+        'image'
     ];
 
     // protection pour dire que ces champs ne sont pas modifiables

@@ -1,9 +1,18 @@
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     @csrf
     @method($post->id ? "PATCH" : "POST")
     <div class="row">
         <div class="col-6">
             <div class="row row-cols-1 g-4">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="image">Image</label> <br>
+                        <input class="form-control" type="file" id="image" name="image">
+                        @error("image")
+                            <p class="text-danger mb-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="title">Titre*</label> <br>
