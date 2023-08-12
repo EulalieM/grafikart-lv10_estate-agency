@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Property;
+use App\Http\Requests\Admin\PropertyFormRequest;
+
 
 class PropertyController extends Controller
 {
@@ -17,26 +19,43 @@ class PropertyController extends Controller
 
     public function create()
     {
-        //
+        $property = new Property();
+        $property->fill([
+            'surface' => 40,
+            'rooms' => 3,
+            'bedrooms' => 1,
+            'floor' => 0,
+            'city' => 'Angoulême',
+            'postal_code' => 16000,
+            'sold' => false
+        ]);
+        return view('admin.properties.form', [
+            'property' => $property
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(PropertyFormRequest $request)
     {
-        //
+        $property = Property::create($request->validated());
+        return to_route('admin.property.index')->with('success', 'Le bien a été ajouté.');
     }
 
-    public function edit(string $id)
+    public function edit(Property $property)
     {
-        //
+        return view('admin.properties.form', [
+            'property' => $property
+        ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(PropertyFormRequest $request, Property $property)
     {
-        //
+        $property->update($request->validated());
+        return to_route('admin.property.index')->with('success', 'Le bien a été modifié.');
     }
 
-    public function destroy(string $id)
+    public function destroy(Property $property)
     {
-        //
+        $property->delete();
+        return to_route('admin.property.index')->with('success', 'Le bien a été supprimé.');
     }
 }
