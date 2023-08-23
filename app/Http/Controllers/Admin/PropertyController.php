@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Http\Requests\Admin\PropertyFormRequest;
+use App\Models\Option;
 
 
 class PropertyController extends Controller
@@ -29,27 +30,32 @@ class PropertyController extends Controller
             'postal_code' => 16000,
             'sold' => false
         ]);
+
         return view('admin.properties.form', [
-            'property' => $property
+            'property' => $property,
+            'options' => Option::pluck('name', 'id')
         ]);
     }
 
     public function store(PropertyFormRequest $request)
     {
         $property = Property::create($request->validated());
+        $property->options()->sync($request->validated('options'));
         return to_route('admin.property.index')->with('success', 'Le bien a été ajouté.');
     }
 
     public function edit(Property $property)
     {
         return view('admin.properties.form', [
-            'property' => $property
+            'property' => $property,
+            'options' => Option::pluck('name', 'id')
         ]);
     }
 
     public function update(PropertyFormRequest $request, Property $property)
     {
         $property->update($request->validated());
+        $property->options()->sync($request->validated('options'));
         return to_route('admin.property.index')->with('success', 'Le bien a été modifié.');
     }
 
