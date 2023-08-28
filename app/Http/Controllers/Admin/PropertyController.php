@@ -13,7 +13,7 @@ class PropertyController extends Controller
 {
     public function index()
     {
-        return view('admin.properties.index', [
+        return view('admin.property.index', [
             'properties' => Property::orderBy('created_at', 'DESC')->paginate(25)
         ]);
     }
@@ -31,7 +31,7 @@ class PropertyController extends Controller
             'sold' => false
         ]);
 
-        return view('admin.properties.form', [
+        return view('admin.property.form', [
             'property' => $property,
             'options' => Option::pluck('name', 'id')
         ]);
@@ -46,7 +46,7 @@ class PropertyController extends Controller
 
     public function edit(Property $property)
     {
-        return view('admin.properties.form', [
+        return view('admin.property.form', [
             'property' => $property,
             'options' => Option::pluck('name', 'id')
         ]);

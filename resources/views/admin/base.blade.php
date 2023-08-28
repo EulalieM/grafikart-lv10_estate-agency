@@ -32,7 +32,7 @@
                 </ul>
             </div>
         </div>
-      </nav>
+    </nav>
 
     <div class="container my-5">
         @if (session('success'))
