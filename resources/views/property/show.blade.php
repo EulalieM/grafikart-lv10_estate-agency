@@ -13,7 +13,8 @@
         <hr>
         <div class="mt-4">
             <h4>Intéressé par ce bien ?</h4>
-            <form action="" method="post">
+            @include('shared.flash')
+            <form action="{{ route('property.contact', $property) }}" method="post">
                 @csrf
                 <div class="row row-cols-2 g-2">
                     @include('shared.input', ['class'=>'col', 'label'=>'Prénom', 'name'=>'firstname'])
