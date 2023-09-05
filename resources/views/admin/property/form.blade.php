@@ -34,6 +34,11 @@
                 @include('shared.checkbox', ['label'=>'Vendu ?', 'name'=>'sold', 'value'=>$property->sold])
             </div>
             <div class="col col-4">
+                <div class="mb-3">
+                    @foreach($property->pictures as $picture)
+                        <img src="{{ $picture->getImageUrl() }}" alt="" class="m-1" width="80">
+                    @endforeach
+                </div>
                 @include('shared.upload', ['label'=>'Image(s)', 'name'=>'pictures', 'multiple'=>true])
             </div>
         </div>
