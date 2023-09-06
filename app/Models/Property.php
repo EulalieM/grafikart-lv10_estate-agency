@@ -9,6 +9,7 @@ use App\Models\Option;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
+use App\Models\Picture;
 
 class Property extends Model
 {
@@ -61,5 +62,11 @@ class Property extends Model
         if (count($pictures) > 0) {
             $this->pictures()->createMany($pictures);
         }
+    }
+
+
+    public function getPicture(): ?Picture
+    {
+        return $this->pictures[0] ?? null;
     }
 }

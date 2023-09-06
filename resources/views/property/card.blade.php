@@ -1,4 +1,9 @@
 <div class="card">
+    @if ($property->getPicture())
+        <img src="{{ $property->getPicture()->getImageUrl() }}" alt="" class="img-fluid">
+    @else
+    <img src="/placeholder.png" alt="" class="img-fluid">
+    @endif
     <div class="card-body">
         <h5 class="card-title">
             <a href="{{ route('property.show', ['slug' => $property->getSlug(), 'property' => $property]) }}">{{ $property->title }}</a>

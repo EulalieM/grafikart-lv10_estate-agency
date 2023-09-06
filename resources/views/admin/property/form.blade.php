@@ -34,9 +34,17 @@
                 @include('shared.checkbox', ['label'=>'Vendu ?', 'name'=>'sold', 'value'=>$property->sold])
             </div>
             <div class="col col-4">
-                <div class="mb-3">
+                <div class="mb-3 d-flex flex-wrap">
                     @foreach($property->pictures as $picture)
-                        <img src="{{ $picture->getImageUrl() }}" alt="" class="m-1" width="80">
+                    <div id="picture{{ $picture->id }}" class="m-2 d-flex flex-column align-items-center justify-content-center">
+                        <div>
+                            <img src="{{ $picture->getImageUrl() }}" alt="" class="mb-1" width="100">
+                        </div>
+                        <button class="btn btn-danger btn-sm w-100" type="button" hx-delete="{{ route('admin.picture.destroy', $picture) }}" hx-target="#picture{{ $picture->id }}" hx-swap="delete">
+                            <span class="htmx-indicator spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Supprimer
+                        </button>
+                    </div>
                     @endforeach
                 </div>
                 @include('shared.upload', ['label'=>'Image(s)', 'name'=>'pictures', 'multiple'=>true])

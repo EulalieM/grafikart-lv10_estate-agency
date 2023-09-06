@@ -30,7 +30,10 @@ Route::get('/login', [\App\Http\Controllers\AuthController::class, 'login'])->mi
 Route::post('/login', [\App\Http\Controllers\AuthController::class, 'doLogin']);
 Route::delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () use ($idRegex) {
     Route::resource('property', App\Http\Controllers\Admin\PropertyController::class)->except(['show']);
     Route::resource('option', App\Http\Controllers\Admin\OptionController::class)->except(['show']);
+    Route::delete('picture/{picture}', [\App\Http\Controllers\Admin\PictureController::class, 'destroy'])->name('picture.destroy')->where([
+        'picture' => $idRegex,
+    ]);
 });
