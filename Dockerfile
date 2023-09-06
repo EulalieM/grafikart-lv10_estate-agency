@@ -1,10 +1,11 @@
 # Utilisation de l'image de base PHP 8.2 en mode CLI
 FROM php:8.2-cli
 
-# Mise à jour des paquets et installation des dépendances nécessaires pour installer l'extension zip de PHP
+# Mise à jour des paquets et installation des dépendances nécessaires pour installer les extensions zip, GD et Exif
 RUN apt-get update && \
-    apt-get install -y zlib1g-dev libzip-dev unzip && \
-    docker-php-ext-install zip
+    apt-get install -y zlib1g-dev libzip-dev libjpeg-dev libpng-dev && \
+    docker-php-ext-configure gd --with-jpeg && \
+    docker-php-ext-install zip gd exif
 
 # Téléchargement de Composer et installation dans le dossier /usr/local/bin
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"

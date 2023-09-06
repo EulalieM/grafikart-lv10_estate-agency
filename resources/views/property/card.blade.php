@@ -1,6 +1,6 @@
 <div class="card">
     @if ($property->getPicture())
-        <img src="{{ $property->getPicture()->getImageUrl() }}" alt="" class="img-fluid">
+        <img src="{{ $property->getPicture()->getImageUrl(360, 230) }}" alt="" class="img-fluid">
     @else
     <img src="/placeholder.png" alt="" class="img-fluid">
     @endif
