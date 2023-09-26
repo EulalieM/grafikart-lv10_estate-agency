@@ -14,9 +14,6 @@ class HomeController extends Controller
         // dump($properties->first()->created_at); // string thanks to the casts
         // dump($properties->first()->sold); // bool thanks to the casts
         // die;
-        $user = User::first();
-        $user->password = '0000';
-        dd($user->password, $user);
         return view('default.home', ['properties' => $properties]);
     }
 }
