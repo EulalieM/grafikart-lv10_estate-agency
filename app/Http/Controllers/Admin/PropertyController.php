@@ -15,7 +15,7 @@ class PropertyController extends Controller
     public function index()
     {
         return view('admin.property.index', [
-            'properties' => Property::orderBy('created_at', 'DESC')->paginate(25)
+            'properties' => Property::orderBy('created_at', 'DESC')->withTrashed()->paginate(25)
         ]);
     }
 
@@ -58,14 +58,17 @@ class PropertyController extends Controller
     {
         $property->update($request->validated());
         $property->options()->sync($request->validated('options'));
-        $property->attachFiles($request->validated('pictures'));
+        $files = $request->validated('pictures') ?? [];
+        $property->attachFiles($files);
         return to_route('admin.property.index')->with('success', 'Le bien a été modifié.');
     }
 
     public function destroy(Property $property)
     {
         Picture::destroy($property->pictures()->pluck('id'));
-        $property->delete();
+        $property->delete(); // soft delete
+        // $property->forceDelete();
+        // $property->restore(); // deleted_at = null
         return to_route('admin.property.index')->with('success', 'Le bien a été supprimé.');
     }
 }
