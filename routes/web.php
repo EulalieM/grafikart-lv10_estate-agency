@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 $idRegex = '[0-9]+';
 $slugRegex = '[0-9a-z\-]+';
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 Route::get('/biens', [App\Http\Controllers\PropertyController::class, 'index'])->name('property.index');
 Route::get('/biens/{slug}-{property}', [App\Http\Controllers\PropertyController::class, 'show'])->name('property.show')->where([
     'property' => $idRegex,
