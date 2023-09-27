@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 $idRegex = '[0-9]+';
 $slugRegex = '[0-9a-z\-]+';
+
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 Route::get('/biens', [App\Http\Controllers\PropertyController::class, 'index'])->name('property.index');
@@ -32,10 +37,22 @@ Route::delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout']
 
 Route::get('/images/{path}', [\App\Http\Controllers\ImageController::class, 'show'])->where('path', '.*');
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () use ($idRegex) {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () use ($idRegex) {
     Route::resource('property', App\Http\Controllers\Admin\PropertyController::class)->except(['show']);
     Route::resource('option', App\Http\Controllers\Admin\OptionController::class)->except(['show']);
     Route::delete('picture/{picture}', [\App\Http\Controllers\Admin\PictureController::class, 'destroy'])->name('picture.destroy')->where([
         'picture' => $idRegex,
     ]);
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
