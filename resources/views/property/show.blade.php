@@ -38,7 +38,8 @@
                     <form action="{{ route('property.contact', $property) }}" method="post">
                         @csrf
                         <div class="row row-cols-2 g-2">
-                            @include('shared.input', ['class'=>'col', 'label'=>'Prénom', 'name'=>'firstname'])
+                            <x-input class="col" label="Prénom" name="firstname" />
+                            {{-- @include('shared.input', ['class'=>'col', 'label'=>'Prénom', 'name'=>'firstname']) --}}
                             @include('shared.input', ['class'=>'col', 'label'=>'Nom', 'name'=>'lastname'])
                             @include('shared.input', ['class'=>'col', 'label'=>'Téléphone', 'name'=>'phone'])
                             @include('shared.input', ['class'=>'col', 'label'=>'Email', 'name'=>'email', 'type'=>'email'])
