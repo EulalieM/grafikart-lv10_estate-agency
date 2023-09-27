@@ -4,9 +4,9 @@
 
 @section('content')
 
-    <x-alert type="success" class="fw-bold">
+    {{-- <x-alert type="success" class="fw-bold">
         Infos
-    </x-alert>
+    </x-alert> --}}
 
     <div class="bg-light p-5 mb-5 text-center">
         <div class="container">
