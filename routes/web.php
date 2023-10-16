@@ -40,9 +40,12 @@ Route::get('/images/{path}', [\App\Http\Controllers\ImageController::class, 'sho
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () use ($idRegex) {
     Route::resource('property', App\Http\Controllers\Admin\PropertyController::class)->except(['show']);
     Route::resource('option', App\Http\Controllers\Admin\OptionController::class)->except(['show']);
-    Route::delete('picture/{picture}', [\App\Http\Controllers\Admin\PictureController::class, 'destroy'])->name('picture.destroy')->where([
-        'picture' => $idRegex,
-    ]);
+    Route::delete('picture/{picture}', [\App\Http\Controllers\Admin\PictureController::class, 'destroy'])
+        ->name('picture.destroy')
+        ->where([
+            'picture' => $idRegex,
+        ])
+        ->can('delete', 'picture');
 });
 
 Route::get('/dashboard', function () {

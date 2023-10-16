@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Property;
 use App\Models\Picture;
 use App\Http\Requests\Admin\PropertyFormRequest;
@@ -12,8 +13,14 @@ use App\Models\Option;
 
 class PropertyController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Property::class, 'property');
+    }
+
     public function index()
     {
+        // dd(Auth::user()->can('viewAny', Property::class));
         return view('admin.property.index', [
             'properties' => Property::orderBy('created_at', 'DESC')->withTrashed()->paginate(25)
         ]);
@@ -48,6 +55,8 @@ class PropertyController extends Controller
 
     public function edit(Property $property)
     {
+        // dd(Auth::user()->can('delete', $property));
+        // dd($this->authorize('delete', $property));
         return view('admin.property.form', [
             'property' => $property,
             'options' => Option::pluck('name', 'id')
